@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR TOUR - Transporte Executivo e Turismo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            background: #f7f7f7;
+            color: #222;
+            overflow-x: hidden;
+        }
+        #historico {
+            margin: 2rem 0;
+            background-color: #F5F5F5;
+            width: 100%;
+            padding: 02rem;
+        }
+        .navbar {
+            background: #0a2342;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .navbar-logo {
+            height: 40px;
+        }
+        .navbar-menu {
+            display: flex;
+            gap: 1.2rem;
+        }
+        hr {
+            width: 60px;
+            border-top: 3px solid #0E0E0E !important;
+            margin-bottom: 1rem;
+        }
+        .navbar-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar-menu a:hover {
+            color: #ffcc00;
+        }
+        .navbar-btn {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .navbar-btn:hover {
+            background: #145ea8;
+        }
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            background: url('img/fundo_hero_vr_tour.jpg') center center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .banner-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: rgba(10,35,66,0.45);
+        }
+        .banner-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        .banner-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .banner-content .banner-btn {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7rem 1.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .banner-content .banner-btn:hover {
+            background: #145ea8;
+        }
+        main {
+            width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 2rem 0;
+        }
+        .section-title {
+            text-align: center;
+            color: #0a2342;
+            font-size: 2rem;
+            margin-bottom: .5rem;
+            font-weight: 700;
+            width: 100%;
+        }
+        .hr-section {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        .service-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.12);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: box-shadow 0.2s;
+        }
+        .service-card:hover {
+            box-shadow: 0 4px 16px rgba(25,118,210,.5);
+        }
+        .service-card img {
+            height: 48px;
+            margin-bottom: 1rem;
+        }
+        .service-card h3 {
+            font-size: 1.1rem;
+            color: #0a2342;
+            margin-bottom: 0.5rem;
+        }
+        .service-card p {
+            font-size: 0.98rem;
+            color: #444;
+        }
+        .info-section {
+            margin-bottom: 2.5rem;
+        }
+        .info-section h2 {
+            color: #0a2342;
+            font-weight: 700;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: .5rem;
+            font-weight: 700;
+            width: 100%;
+        }
+        .info-section p {
+            color: #333;
+            font-size: 1.05rem;
+        }
+        .valores-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+        .valor-card {
+            background: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            padding: 1rem;
+            text-align: center;
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .valores-grid .service-card img {
+            height: 36px;
+            display: block;
+            width: 75px;
+            margin: 0 auto 1rem auto;
+        }
+        .valores-grid .service-card {
+            width: 25%;
+        }
+        .valor-card strong {
+            color: #0a2342;
+        }
+        .diferenciais-grid {
+display: flex
+;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+        .diferencial-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            width: 35%;
+            gap: 1rem;
+        }
+        .diferencial-card img {
+            height: 32px;
+        }
+        .diferencial-card span {
+            color: #0a2342;
+            font-weight: 500;
+        }
+        .contato-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .contato-form {
+            background: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            min-width: 300px;
+            flex: 1;
+        }
+        .contato-form label {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #0a2342;
+            font-weight: 500;
+        }
+        .contato-form input,
+        .contato-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .contato-form textarea {
+            min-height: 80px;
+        }
+        .contato-form button {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7rem 1.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .contato-form button:hover {
+            background: #145ea8;
+        }
+        .contato-info {
+            flex: 1;
+            min-width: 220px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            padding: 2rem 1.5rem;
+            color: #0a2342;
+            font-size: 1.05rem;
+        }
+        .contato-info h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #0a2342;
+        }
+        .contato-info p {
+            margin-bottom: 0.7rem;
+        }
+        .contato-info img {
+            height: 22px;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        .text-div p{
+            width: 70%;
+            margin: 0 auto;
+        }
+        .missao-visao {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+        .missao-visao section {
+            width: 30%;
+        }
+        .missao-visao h2 {
+            text-align: left;
+        }
+        .missao-visao hr {
+            display: inline-block;
+        }
+        #publico {
+            margin: 2rem 0;
+            background-color: #F5F5F5;
+            width: 100%;
+            padding: 2rem;
+        }
+        .services-flex {
+            display: flex;
+            justify-content: space-evenly;
+            align-items:center;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+        }
+        .services-flex .service-card {
+            width: 35%;
+            margin-bottom: 1.5rem;
+        }
+        .diferen {
+                margin: 2rem 0;
+    background-color: #F5F5F5;
+    width: 100%;
+    padding: 02rem;
+        }
+        footer {
+            background: #0a2342;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        @media (max-width: 900px) {
+            main {
+                padding: 1rem 0.2rem;
+            }
+            .services-grid, .valores-grid, .diferenciais-grid {
+                grid-template-columns: 1fr;
+            }
+            .contato-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="img/logo.jpeg" alt="VR TOUR Logo" class="navbar-logo">
+        <div class="navbar-menu">
+            <a href="#historico">Histórico</a>
+            <a href="#porte">Porte</a>
+            <a href="#missao">Missão</a>
+            <a href="#visao">Visão</a>
+            <a href="#valores">Valores</a>
+            <a href="#publico">Público-Alvo</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#diferenciais">Diferenciais</a>
+        </div>
+        <a class="navbar-btn" href="tel:3191578882" style="text-decoration: none;" target="_blank">Solicitar Orçamento</a>
+    </nav>
+    <div class="banner">
+        <div class="banner-content">
+            <h1>VR TOUR</h1>
+            <p>TRANSPORTE EXECUTIVO</p>
+            <a class="banner-btn" href="tel:3191578882" style="text-decoration: none;"target="_blank">Fale Conosco</a>
+        </div>
+    </div>
+    <main>
+        <div class="hr-section">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <hr>
+        </div>
+       
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="img/icone_transporte_executivo.png" alt="Transporte Executivo">
+                <h3>Transporte Executivo</h3>
+                <p>Viagens corporativas e compromissos empresariais.</p>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_airport_transfer.png" alt="Transfer Aeroporto">
+                <h3>Transfer Aeroporto</h3>
+                <p>Pontualidade e conforto para seus agendamentos.</p>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_eventos.png" alt="Eventos Empresariais">
+                <h3>Eventos Empresariais</h3>
+                <p>Transporte dedicado para eventos corporativos.</p>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_viagens.png" alt="Viagens Intermunicipais">
+                <h3>Viagens Intermunicipais</h3>
+                <p>Conforto e segurança para viagens entre cidades.</p>
+            </div>
+        </div>
+        <section class="info-section" id="historico">
+            <div class="hr-section">
+                <h2 class="section-title">Histórico</h2>
+                <hr>
+                <div class="text-div">
+                    <p>A VR TOUR foi fundada em 2002 por Valter Vicente Barbosa, profissional que iniciou sua trajetória como taxista em hotéis, oferecendo desde o início um atendimento diferenciado e executivo. O cuidado com a qualidade do serviço chamou a atenção dos clientes, que passaram a solicitar atendimentos diretos, construindo assim sua primeira carta de clientes. Com o crescimento da demanda e o aumento de indicações, Valter percebeu a necessidade de expandir sua operação. Assim nasceu oficialmente a VR TOUR, que passou a contar com motoristas parceiros para atender clientes empresariais e particulares. Em 2025, a empresa possui mais de 200 motoristas parceiros e contratos ativos com mais de 20 empresas, sendo a Vale responsável por cerca de 51% da demanda mensal, além de clientes de destaque como BMG, Biominas e IBM.</p>
+                </div>
+            </div>
+        </section>
+        <section class="info-section" id="porte">
+             <div class="hr-section">
+                <h2 class="section-title">Porte</h2>
+                <hr>
+                <div class="text-div">
+                    <p>A VR TOUR é uma empresa de médio porte, sediada em Belo Horizonte – MG, e atua no setor de transporte executivo e turismo. Conta com setores estruturados de Financeiro, Marketing, Comercial e uma ampla rede de motoristas parceiros. A frota é composta por veículos executivos (Corolla, Civic, Cruze, Sentra, etc), carros de 7 lugares (Commander, Tiggo 8 e Spin), além de motoristas parceiros com VAN, garantindo conforto e flexibilidade para diferentes tipos de atendimento.</p>
+                </div>
+            </div>
+           
+        </section>
+        <div class="missao-visao">
+                <section class="info-section" id="missao">
+                <h2 class="section-title">Missão</h2><hr>
+                <p>Oferecer serviços de transporte executivo com excelência, segurança e pontualidade, garantindo uma experiência diferenciada aos passageiros e agregando valor às empresas parceiras.</p>
+            </section>
+            <section class="info-section" id="visao">
+                <h2 class="section-title">Visão</h2><hr>
+                <p>Ser reconhecida como a principal referência em transporte executivo e turismo de Minas Gerais, expandindo continuamente sua atuação para outras regiões do Brasil, mantendo a excelência, inovação e qualidade no atendimento como pilares do crescimento.</p>
+            </section>
+        </div>
+        <!-- <div class="section-title" id="valores">Nossos Valores</div> -->
+        <div class="hr-section">
+                <h2 class="section-title">Nossos Valores</h2>
+                <hr>
+            </div>
+        <div class="valores-grid">
+            <div class="service-card">
+                <img src="img/icone_qualidade.png" alt="Qualidade">
+                <strong>Qualidade no atendimento</strong>
+                <div>Atendimento cordial, trajes sociais e padrão executivo.</div>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_seguranca.png" alt="Segurança">
+                <strong>Segurança</strong>
+                <div>Motoristas cadastrados, veículos revisados e com seguro exigido por lei.</div>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_conforto.png" alt="Conforto">
+                <strong>Conforto</strong>
+                <div>Frota de carros novos e serviço de bordo adaptado ao horário.</div>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_pontualidade.png" alt="Pontualidade">
+                <strong>Pontualidade</strong>
+                <div>Faixas exclusivas do MOVE para trajetos mais rápidos.</div>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_compromisso.png" alt="Compromisso">
+                <strong>Compromisso com o cliente</strong>
+                <div>Tranquilidade, confiabilidade e experiência sem contratempos.</div>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_parceria.png" alt="Parceria">
+                <strong>Parceria e crescimento conjunto</strong>
+                <div>Valorização dos motoristas parceiros e incentivo ao desenvolvimento profissional.</div>
+            </div>
+        </div>
+        <section class="info-section" id="publico">
+            <h2></h2>
+             <div class="hr-section">
+            <h2 class="section-title">Público-Alvo e Capacidade de Atendimento</h2>
+            <hr>
+                        <p>O foco principal da VR TOUR é o atendimento empresarial, representando aproximadamente 90% da carteira de clientes, sem deixar de atender clientes particulares. A empresa realiza em média 7 mil atendimentos por ano, entre viagens executivas, transfers, city tours e eventos.</p>
+
+        </div>
+        </section>
+        <div class="section-title" id="servicos">Serviços Oferecidos</div>
+        <div class="services-flex">
+            <div class="service-card">
+                <img src="img/icone_transporte_executivo.png" alt="Transporte Executivo">
+                <h3>Transporte executivo para compromissos corporativos</h3>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_airport_transfer.png" alt="Transfer Aeroporto">
+                <h3>Transfer para aeroportos e rodoviárias</h3>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_eventos.png" alt="Eventos Empresariais">
+                <h3>Transporte para eventos empresariais e sociais</h3>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_day_use_1.png" alt="Day Use">
+                <h3>Day use para visitas técnicas e reuniões externas</h3>
+            </div>
+            <div class="service-card">
+                <img src="img/icone_viagens.png" alt="Viagens Intermunicipais">
+                <h3>Viagens intermunicipais e interestaduais</h3>
+            </div>
+        </div>
+       
+        <div class="diferen">
+             <div class="hr-section">
+                <h2 class="section-title">Diferenciais Competitivos</h2>
+                <hr>
+        </div>
+ <div class="diferenciais-grid">
+            <div class="diferencial-card">
+                <img src="img/icone_frota_premium.png" alt="Frota Premium">
+                <span>Frota moderna e diversificada</span>
+            </div>
+            <div class="diferencial-card">
+                <img src="img/icone_motoristas.png" alt="Motoristas Qualificados">
+                <span>Motoristas qualificados, uniformizados e treinados</span>
+            </div>
+            <div class="diferencial-card">
+                <img src="img/icone_conforto.png" alt="Serviço de Bordo">
+                <span>Serviço de bordo completo</span>
+            </div>
+            <div class="diferencial-card">
+                <img src="img/icone_pontualidade.png" alt="Faixas MOVE">
+                <span>Acesso às faixas exclusivas do MOVE</span>
+            </div>
+        </div>
+        </div>
+       
+
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 VR TOUR - Todos os direitos reservados.
+    </footer>
+</body>
+</html>
